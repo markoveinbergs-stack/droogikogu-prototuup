@@ -3,209 +3,125 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>TTK droogikogu – taimejutt</title>
-
+<meta name="theme-color" content="#f4f3ef">
+<title>TTK droogikogu – audiogiid</title>
 <style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#f4f3ef;
-    color:#202520;
+:root {
+  --bg:#f4f3ef; --card:#ffffff; --text:#18201b; --muted:#687168;
+  --accent:#315b43; --line:#d9ddd8; --soft:#eef2ee;
 }
-
-main{
-    max-width:600px;
-    margin:auto;
-    padding:28px 18px;
-}
-
-.small{
-    text-transform:uppercase;
-    letter-spacing:1px;
-    font-size:13px;
-    color:#667066;
-    margin-bottom:25px;
-}
-
-.card{
-    background:white;
-    border:1px solid #ddd;
-    border-radius:18px;
-    padding:25px;
-}
-
-.code{
-    font-weight:bold;
-    color:#315b43;
-    font-size:14px;
-}
-
-h1{
-    font-size:32px;
-    margin:8px 0;
-}
-
-.latin{
-    font-family:Georgia,serif;
-    font-style:italic;
-    font-size:20px;
-}
-
-.plant{
-    color:#666;
-    margin-bottom:25px;
-}
-
-audio{
-    width:100%;
-    margin-top:10px;
-}
-
-a{
-    color:#315b43;
-}
-
-.list a{
-    display:block;
-    background:white;
-    border:1px solid #ddd;
-    padding:14px;
-    margin:9px 0;
-    border-radius:12px;
-    text-decoration:none;
-    color:#202520;
-}
-
-footer{
-    margin-top:25px;
-    font-size:13px;
-    color:#777;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+main{max-width:760px;margin:0 auto;padding:34px 18px 60px}
+.kicker{text-transform:uppercase;letter-spacing:1.2px;font-size:13px;color:var(--muted);margin-bottom:22px}
+h1{font-size:clamp(2rem,7vw,2.8rem);line-height:1.08;margin:0 0 12px}
+.lead{font-size:1.05rem;color:var(--muted);margin:0 0 22px}
+.toolbar{display:flex;gap:10px;align-items:center;margin:20px 0 14px}
+.search{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px 16px;font-size:16px;outline:none}
+.search:focus{border-color:#8aa28f;box-shadow:0 0 0 3px rgba(49,91,67,.08)}
+.count{white-space:nowrap;color:var(--muted);font-size:14px}
+.list{display:grid;gap:10px}
+.item{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;text-decoration:none;color:var(--text);transition:.12s}
+.item:hover{transform:translateY(-1px);border-color:#bcc8be}
+.item strong{display:block;font-size:1.06rem}
+.item .sub{display:block;color:var(--muted);margin-top:2px;font-family:Georgia,serif;font-style:italic}
+.item .meta{display:block;color:#7b837d;margin-top:3px;font-size:.84rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.code{font-size:.8rem;font-weight:700;letter-spacing:.09em;color:var(--accent)}
+.card h1{font-size:clamp(1.9rem,7vw,2.6rem);margin:.45rem 0 .3rem}
+.latin{font-family:Georgia,serif;font-style:italic;font-size:1.18rem;margin-bottom:.35rem}
+.plant{color:var(--muted);margin:.2rem 0 1.4rem}
+.listen{border-top:1px solid var(--line);padding-top:1.25rem;margin-top:1.1rem}
+audio{width:100%;margin-top:.65rem}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
+a.textlink{color:var(--accent);text-underline-offset:3px}
+.note{background:var(--soft);border-radius:12px;padding:11px 13px;color:var(--muted);font-size:.9rem;margin-top:18px}
+footer{margin-top:28px;color:var(--muted);font-size:.86rem}
+.hidden{display:none!important}
+.empty{color:var(--muted);padding:20px 2px}
+@media(max-width:520px){main{padding-top:25px} .toolbar{align-items:stretch;flex-direction:column} .count{padding-left:2px}}
 </style>
 </head>
-
 <body>
-
 <main>
-
-<div class="small">
-Tallinna Tervishoiu Kõrgkool · droogikogu
-</div>
-
-<div id="content"></div>
-
-<footer>
-Õppeotstarbeline audiogiidi prototüüp
-</footer>
-
+  <div class="kicker">Tallinna Tervishoiu Kõrgkool · droogikogu</div>
+  <div id="app"></div>
+  <footer>Õppeotstarbeline audiogiid · 59 taimejuttu</footer>
 </main>
-
 <script>
+const DROOGID = [{"id":"D001","name":"Aed-liivatee ürt","latin":"Thymi herba","plant":"Thymus vulgaris L. / Thymus zygis L.","audio":"Farmakopöa_Aed_liivatee.mp3","verified":true},{"id":"D002","name":"Koriandrivili","latin":"Coriandri fructus","plant":"Coriandrum sativum L.","audio":"Farmakopöa_Aedkoriander.mp3","verified":true},{"id":"D003","name":"Salveileht","latin":"Salviae officinalis folium","plant":"Salvia officinalis L.","audio":"Farmakopöa_Aedsalvei.mp3","verified":true},{"id":"D004","name":"Kummeliõisik","latin":"Matricariae flos","plant":"Matricaria recutita L.","audio":"Faramakpöa_Teekummel.mp3","verified":true},{"id":"D005","name":"Aaloe kuivatatud lehemahl","latin":"Aloes folii succus siccatus","plant":"Aloe spp.","audio":"Farmakopöa_Aaloe.mp3","verified":true},{"id":"D006","name":"Altee","latin":"","plant":"","audio":"Farmakopöa_Altee.mp3","verified":false},{"id":"D007","name":"Angervaks","latin":"","plant":"","audio":"Farmakopöa_Angervaks.mp3","verified":false},{"id":"D008","name":"Apteegitill","latin":"","plant":"","audio":"Farmakopöa_Apteegitill.mp3","verified":false},{"id":"D009","name":"Estragonpuju","latin":"","plant":"","audio":"Estragonpuju.mp3","verified":false},{"id":"D010","name":"Goji","latin":"","plant":"","audio":"Goji.mp3","verified":false},{"id":"D011","name":"Harilik aspar","latin":"","plant":"","audio":"Harilik aspar.mp3","verified":false},{"id":"D012","name":"Harilik käokuld","latin":"","plant":"","audio":"Harilik käokuld.mp3","verified":false},{"id":"D013","name":"Harilik mustnupp","latin":"","plant":"","audio":"Farmakopöa_Harilik_mustnupp.mp3","verified":false},{"id":"D014","name":"Harilik ogaõun","latin":"","plant":"","audio":"Harilik ogaõun.mp3","verified":false},{"id":"D015","name":"Humal","latin":"","plant":"","audio":"Farmakopöa_Humal.mp3","verified":false},{"id":"D016","name":"Ingver","latin":"","plant":"","audio":"Farmakopöa_Ingver.mp3","verified":false},{"id":"D017","name":"Kalifornia läänemagun","latin":"","plant":"","audio":"Farmakopöa_Kalifornia_läänemagun.mp3","verified":false},{"id":"D018","name":"Koirohi","latin":"","plant":"","audio":"Farmakopöa_Koirohi.mp3","verified":false},{"id":"D019","name":"Kollajuur","latin":"","plant":"","audio":"Farmakopöa_Kollajuur.mp3","verified":false},{"id":"D020","name":"Kortsleht","latin":"","plant":"","audio":"Farmakopöa_Kortsleht.mp3","verified":false},{"id":"D021","name":"Kukesaba","latin":"","plant":"","audio":"Kukesaba.mp3","verified":false},{"id":"D022","name":"Kõrvits","latin":"","plant":"","audio":"Farmakopöa_Kõrvits.mp3","verified":false},{"id":"D023","name":"Köömen","latin":"","plant":"","audio":"Farmakopöa_Köömen.mp3","verified":false},{"id":"D024","name":"Küüslauk","latin":"","plant":"","audio":"Farmakopöa_Küüslauk.mp3","verified":false},{"id":"D025","name":"Lagrits-magusjuur","latin":"","plant":"","audio":"Farmakopöa_Lagrits-magusjuur.mp3","verified":false},{"id":"D026","name":"Leeskputk","latin":"","plant":"","audio":"Farmakopöa_Leeskputk_Õige.mp3","verified":false},{"id":"D027","name":"Liht-naistepuna","latin":"","plant":"","audio":"Farmakopöa_Liht-naistepuna.mp3","verified":false},{"id":"D028","name":"Loorber","latin":"","plant":"","audio":"Loorber.mp3","verified":false},{"id":"D029","name":"Lõhnav neitsikummel","latin":"","plant":"","audio":"Farmakopöa_Lõhnav neitsikummel.mp3","verified":false},{"id":"D030","name":"Maarjalepp","latin":"","plant":"","audio":"Farmakopöa_Maarjalepp.mp3","verified":false},{"id":"D031","name":"Maarjaohakas","latin":"","plant":"","audio":"Farmakopöa_Maarjaohakas.mp3","verified":false},{"id":"D032","name":"Mets-kassinaeris","latin":"","plant":"","audio":"Farmakopöa_Mets-kassinaeris.mp3","verified":false},{"id":"D033","name":"Mustikas","latin":"","plant":"","audio":"Farmakopöa_Mustikas.mp3","verified":false},{"id":"D034","name":"Nurmenukk","latin":"","plant":"","audio":"Farmakopöa_Nurmenukk.mp3","verified":false},{"id":"D035","name":"Nõmm liivatee","latin":"","plant":"","audio":"Farmakopöa_Nõmm_liivatee.mp3","verified":false},{"id":"D036","name":"Palderjan","latin":"","plant":"","audio":"Palderjan.mp3","verified":false},{"id":"D037","name":"Piparmünt","latin":"","plant":"","audio":"Farmakopöa_Piparmünt.mp3","verified":false},{"id":"D038","name":"Pohl","latin":"","plant":"","audio":"Pohl.mp3","verified":false},{"id":"D039","name":"Punane siilkübar","latin":"","plant":"","audio":"Farmakopöa_Punane_siilkübar.mp3","verified":false},{"id":"D040","name":"Pune","latin":"","plant":"","audio":"Pune.mp3","verified":false},{"id":"D041","name":"Raudrohi","latin":"","plant":"","audio":"Farmakopöa_Raudrohi.mp3","verified":false},{"id":"D042","name":"Roosilõhnaline kuldjuur","latin":"","plant":"","audio":"Farmakopöa_Roosilõhnaline_kuldjuur.mp3","verified":false},{"id":"D043","name":"Rukola","latin":"","plant":"","audio":"Rukola.mp3","verified":false},{"id":"D044","name":"Saialill","latin":"","plant":"","audio":"Farmakopöa_Saialill.mp3","verified":false},{"id":"D045","name":"Sidrunhein","latin":"","plant":"","audio":"Sidrunhein.mp3","verified":false},{"id":"D046","name":"Sidrunmeliss","latin":"","plant":"","audio":"Farmakopöa_Sidrunmeliss.mp3","verified":false},{"id":"D047","name":"Sigur","latin":"","plant":"","audio":"Sigur.mp3","verified":false},{"id":"D048","name":"Soolikarohi","latin":"","plant":"","audio":"Soolikarohi.mp3","verified":false},{"id":"D049","name":"Süstlehine teeleht","latin":"","plant":"","audio":"Farmakopöa_Süstlehine teeleht.mp3","verified":false},{"id":"D050","name":"Tomat","latin":"","plant":"","audio":"Tomat.mp3","verified":false},{"id":"D051","name":"Tähklavendel","latin":"","plant":"","audio":"Farmakopöa_Tähklavendel.mp3","verified":false},{"id":"D052","name":"Tšilli","latin":"","plant":"","audio":"Farmakopöa_Tšilli.mp3","verified":false},{"id":"D053","name":"Veiste südamerohi","latin":"","plant":"","audio":"Farmakopöa_Veiste_südamerohi.mp3","verified":false},{"id":"D054","name":"Vereurmarohi","latin":"","plant":"","audio":"Farmakopöa_Vereurmarohi.mp3","verified":false},{"id":"D055","name":"Verev sõrmkübar","latin":"","plant":"","audio":"Farmakopöa_Verev_sõrmkübar.mp3","verified":false},{"id":"D056","name":"õlipuu","latin":"","plant":"","audio":"Farmakopöa_õlipuu.mp3","verified":false},{"id":"D057","name":"Üheksavägine","latin":"","plant":"","audio":"Farmakopöa_Üheksavägine.mp3","verified":false},{"id":"D058","name":"Ürt-penimünt","latin":"","plant":"","audio":"Farmakopöa_Ürt-penimünt.mp3","verified":false},{"id":"D059","name":"Ürt-punanupp","latin":"","plant":"","audio":"Farmakopöa_Ürt-punanupp.mp3","verified":false}];
 
-const droogid = {
+const byId = Object.fromEntries(DROOGID.map(d => [d.id, d]));
+const params = new URLSearchParams(location.search);
+const selectedId = (params.get("d") || "").toUpperCase();
+const app = document.getElementById("app");
 
-D001:{
-name:"Aed-liivatee ürt",
-latin:"Thymi herba",
-plant:"Thymus vulgaris L. / Thymus zygis L.",
-audio:"Farmakopöa_Aed_liivatee.mp3"
-},
-
-D002:{
-name:"Koriandrivili",
-latin:"Coriandri fructus",
-plant:"Coriandrum sativum L.",
-audio:"Farmakopöa_Aedkoriander.mp3"
-},
-
-D003:{
-name:"Salveileht",
-latin:"Salviae officinalis folium",
-plant:"Salvia officinalis L.",
-audio:"Farmakopöa_Aedsalvei.mp3"
-},
-
-D004:{
-name:"Kummeliõisik",
-latin:"Matricariae flos",
-plant:"Matricaria recutita L.",
-audio:"Faramakpöa_Teekummel.mp3"
-},
-
-D005:{
-name:"Aaloe kuivatatud lehemahl",
-latin:"Aloes folii succus siccatus",
-plant:"Aloe spp.",
-audio:"Farmakopöa_Aaloe.mp3"
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 }
 
-};
-
-const params = new URLSearchParams(window.location.search);
-const id = params.get("d");
-
-const content = document.getElementById("content");
-
-if(droogid[id]){
-
-const d = droogid[id];
-
-content.innerHTML = `
-
-<div class="card">
-
-<div class="code">${id}</div>
-
-<h1>${d.name}</h1>
-
-<div class="latin">${d.latin}</div>
-
-<p class="plant">
-Lähtetaim: <i>${d.plant}</i>
-</p>
-
-<strong>🎧 Kuula taimejuttu</strong>
-
-<audio controls preload="metadata">
-<source src="${d.audio}" type="audio/mpeg">
-Sinu brauser ei toeta audiopleierit.
-</audio>
-
-</div>
-
-<p>
-<a href="./">← Droogikogu</a>
-</p>
-
-`;
-
-}else{
-
-let html = `
-<h1>Droogikogu audiogiid</h1>
-<p>Vali droog:</p>
-<div class="list">
-`;
-
-for(const [key,d] of Object.entries(droogid)){
-
-html += `
-<a href="?d=${key}">
-<strong>${key} · ${d.name}</strong><br>
-<i>${d.latin}</i>
-</a>
-`;
-
+function showDetail(d) {
+  document.title = `${d.name} · TTK droogikogu`;
+  const latin = d.latin ? `<div class="latin">${esc(d.latin)}</div>` : "";
+  const plant = d.plant ? `<p class="plant">Lähtetaim: <i>${esc(d.plant)}</i></p>` : "";
+  app.innerHTML = `
+    <article class="card">
+      <div class="code">${esc(d.id)}</div>
+      <h1>${esc(d.name)}</h1>
+      ${latin}
+      ${plant}
+      <div class="listen">
+        <strong>🎧 Kuula taimejuttu</strong>
+        <audio controls preload="metadata">
+          <source src="${encodeURI(d.audio)}" type="audio/mpeg">
+          Sinu brauser ei toeta audiopleierit.
+        </audio>
+      </div>
+    </article>
+    <div class="actions">
+      <a class="textlink" href="./">← Kõik taimejutud</a>
+      <a class="textlink" href="${encodeURI(d.audio)}" target="_blank" rel="noopener">Ava helifail</a>
+    </div>`;
 }
 
-html += "</div>";
+function showList() {
+  document.title = "TTK droogikogu – audiogiid";
+  app.innerHTML = `
+    <h1>Droogikogu audiogiid</h1>
+    <p class="lead">Vali taimejutt või otsi nime järgi.</p>
+    <div class="toolbar">
+      <input id="q" class="search" type="search" autocomplete="off" placeholder="Otsi taime või D-koodi…" aria-label="Otsi taimejuttu">
+      <div id="count" class="count"></div>
+    </div>
+    <div id="list" class="list"></div>
+    <div id="empty" class="empty hidden">Vastet ei leitud.</div>`;
+  const q = document.getElementById("q");
+  const list = document.getElementById("list");
+  const count = document.getElementById("count");
+  const empty = document.getElementById("empty");
 
-content.innerHTML = html;
-
+  function render() {
+    const term = q.value.trim().toLocaleLowerCase("et");
+    const rows = DROOGID.filter(d =>
+      !term ||
+      d.id.toLocaleLowerCase("et").includes(term) ||
+      d.name.toLocaleLowerCase("et").includes(term) ||
+      (d.latin || "").toLocaleLowerCase("et").includes(term)
+    );
+    count.textContent = `${rows.length} / ${DROOGID.length}`;
+    empty.classList.toggle("hidden", rows.length !== 0);
+    list.innerHTML = rows.map(d => `
+      <a class="item" href="?d=${encodeURIComponent(d.id)}">
+        <strong>${esc(d.id)} · ${esc(d.name)}</strong>
+        ${d.latin ? `<span class="sub">${esc(d.latin)}</span>` : `<span class="meta">Taimejutt</span>`}
+      </a>`).join("");
+  }
+  q.addEventListener("input", render);
+  render();
 }
 
+if (selectedId && byId[selectedId]) showDetail(byId[selectedId]);
+else showList();
 </script>
-
 </body>
 </html>
