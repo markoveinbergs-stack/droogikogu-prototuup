@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>TTK droogikogu – taimejutt</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4f3ef;
+    color:#202520;
+}
+
+main{
+    max-width:600px;
+    margin:auto;
+    padding:28px 18px;
+}
+
+.small{
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:13px;
+    color:#667066;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    border:1px solid #ddd;
+    border-radius:18px;
+    padding:25px;
+}
+
+.code{
+    font-weight:bold;
+    color:#315b43;
+    font-size:14px;
+}
+
+h1{
+    font-size:32px;
+    margin:8px 0;
+}
+
+.latin{
+    font-family:Georgia,serif;
+    font-style:italic;
+    font-size:20px;
+}
+
+.plant{
+    color:#666;
+    margin-bottom:25px;
+}
+
+audio{
+    width:100%;
+    margin-top:10px;
+}
+
+a{
+    color:#315b43;
+}
+
+.list a{
+    display:block;
+    background:white;
+    border:1px solid #ddd;
+    padding:14px;
+    margin:9px 0;
+    border-radius:12px;
+    text-decoration:none;
+    color:#202520;
+}
+
+footer{
+    margin-top:25px;
+    font-size:13px;
+    color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<main>
+
+<div class="small">
+Tallinna Tervishoiu Kõrgkool · droogikogu
+</div>
+
+<div id="content"></div>
+
+<footer>
+Õppeotstarbeline audiogiidi prototüüp
+</footer>
+
+</main>
+
+<script>
+
+const droogid = {
+
+D001:{
+name:"Aed-liivatee ürt",
+latin:"Thymi herba",
+plant:"Thymus vulgaris L. / Thymus zygis L.",
+audio:"Farmakopöa_Aed_liivatee.mp3"
+},
+
+D002:{
+name:"Koriandrivili",
+latin:"Coriandri fructus",
+plant:"Coriandrum sativum L.",
+audio:"Farmakopöa_Aedkoriander.mp3"
+},
+
+D003:{
+name:"Salveileht",
+latin:"Salviae officinalis folium",
+plant:"Salvia officinalis L.",
+audio:"Farmakopöa_Aedsalvei.mp3"
+},
+
+D004:{
+name:"Kummeliõisik",
+latin:"Matricariae flos",
+plant:"Matricaria recutita L.",
+audio:"Faramakpöa_Teekummel.mp3"
+},
+
+D005:{
+name:"Aaloe kuivatatud lehemahl",
+latin:"Aloes folii succus siccatus",
+plant:"Aloe spp.",
+audio:"Farmakopöa_Aaloe.mp3"
+}
+
+};
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("d");
+
+const content = document.getElementById("content");
+
+if(droogid[id]){
+
+const d = droogid[id];
+
+content.innerHTML = `
+
+<div class="card">
+
+<div class="code">${id}</div>
+
+<h1>${d.name}</h1>
+
+<div class="latin">${d.latin}</div>
+
+<p class="plant">
+Lähtetaim: <i>${d.plant}</i>
+</p>
+
+<strong>🎧 Kuula taimejuttu</strong>
+
+<audio controls preload="metadata">
+<source src="${d.audio}" type="audio/mpeg">
+Sinu brauser ei toeta audiopleierit.
+</audio>
+
+</div>
+
+<p>
+<a href="./">← Droogikogu</a>
+</p>
+
+`;
+
+}else{
+
+let html = `
+<h1>Droogikogu audiogiid</h1>
+<p>Vali droog:</p>
+<div class="list">
+`;
+
+for(const [key,d] of Object.entries(droogid)){
+
+html += `
+<a href="?d=${key}">
+<strong>${key} · ${d.name}</strong><br>
+<i>${d.latin}</i>
+</a>
+`;
+
+}
+
+html += "</div>";
+
+content.innerHTML = html;
+
+}
+
+</script>
+
+</body>
+</html>
