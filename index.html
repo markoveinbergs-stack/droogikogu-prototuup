@@ -46,69 +46,986 @@ footer{margin-top:28px;color:var(--muted);font-size:.86rem}
 <main>
   <div class="kicker">Tallinna Tervishoiu Kõrgkool · droogikogu</div>
   <div id="app"></div>
-  <footer>Õppeotstarbeline audiogiid · 59 taimejuttu</footer>
+  <footer>Õppeotstarbeline audiogiid · 122 taksonit</footer>
 </main>
 <script>
 const DROOGID = [
-  {id:"D001",et:"aed-liivatee",la:"Thymus vulgaris",droog:"aed-liivatee ürt",droogLa:"Thymi herba",audio:"Farmakopöa_Aed_liivatee.mp3"},
-  {id:"D002",et:"aedkoriander",la:"Coriandrum sativum",droog:"koriandrivili",droogLa:"Coriandri fructus",audio:"Farmakopöa_Aedkoriander.mp3"},
-  {id:"D003",et:"aedsalvei",la:"Salvia officinalis",droog:"salveileht",droogLa:"Salviae officinalis folium",audio:"Farmakopöa_Aedsalvei.mp3"},
-  {id:"D004",et:"teekummel",la:"Matricaria recutita",droog:"kummeliõisik",droogLa:"Matricariae flos",audio:"Faramakpöa_Teekummel.mp3"},
-  {id:"D005",et:"aaloe",la:"Aloe",droog:"aaloe kuivatatud lehemahl",droogLa:"Aloes folii succus siccatus",audio:"Farmakopöa_Aaloe.mp3"},
-  {id:"D006",et:"harilik altee",la:"Althaea officinalis",droog:"altee",droogLa:"",audio:"Farmakopöa_Altee.mp3"},
-  {id:"D007",et:"harilik angervaks",la:"Filipendula ulmaria",droog:"angervaks",droogLa:"",audio:"Farmakopöa_Angervaks.mp3"},
-  {id:"D008",et:"harilik apteegitill",la:"Foeniculum vulgare",droog:"apteegitill",droogLa:"",audio:"Farmakopöa_Apteegitill.mp3"},
-  {id:"D009",et:"estragonpuju",la:"Artemisia dracunculus",droog:"estragonpuju",droogLa:"",audio:"Estragonpuju.mp3"},
-  {id:"D010",et:"harilik taralõng",la:"Lycium barbarum",droog:"goji",droogLa:"",audio:"Goji.mp3"},
-  {id:"D011",et:"harilik aspar",la:"Asparagus officinalis",droog:"harilik aspar",droogLa:"",audio:"Harilik aspar.mp3"},
-  {id:"D012",et:"harilik käokuld",la:"Helichrysum arenarium",droog:"harilik käokuld",droogLa:"",audio:"Harilik käokuld.mp3"},
-  {id:"D013",et:"harilik mustnupp",la:"Sanguisorba minor",droog:"harilik mustnupp",droogLa:"",audio:"Farmakopöa_Harilik_mustnupp.mp3"},
-  {id:"D014",et:"harilik ogaõun",la:"Datura stramonium",droog:"harilik ogaõun",droogLa:"",audio:"Harilik ogaõun.mp3"},
-  {id:"D015",et:"harilik humal",la:"Humulus lupulus",droog:"humal",droogLa:"",audio:"Farmakopöa_Humal.mp3"},
-  {id:"D016",et:"harilik ingver",la:"Zingiber officinale",droog:"ingver",droogLa:"",audio:"Farmakopöa_Ingver.mp3"},
-  {id:"D017",et:"kalifornia läänemagun",la:"Eschscholzia californica",droog:"kalifornia läänemagun",droogLa:"",audio:"Farmakopöa_Kalifornia_läänemagun.mp3"},
-  {id:"D018",et:"koirohi",la:"Artemisia absinthium",droog:"koirohi",droogLa:"",audio:"Farmakopöa_Koirohi.mp3"},
-  {id:"D019",et:"kollajuur",la:"Curcuma",droog:"kollajuur",droogLa:"",audio:"Farmakopöa_Kollajuur.mp3"},
-  {id:"D020",et:"harilik kortsleht",la:"Alchemilla vulgaris",droog:"kortsleht",droogLa:"",audio:"Farmakopöa_Kortsleht.mp3"},
-  {id:"D021",et:"kukesaba",la:"Lythrum",droog:"kukesaba",droogLa:"",audio:"Kukesaba.mp3"},
-  {id:"D022",et:"harilik kõrvits",la:"Cucurbita pepo",droog:"kõrvits",droogLa:"",audio:"Farmakopöa_Kõrvits.mp3"},
-  {id:"D023",et:"harilik köömen",la:"Carum carvi",droog:"köömen",droogLa:"",audio:"Farmakopöa_Köömen.mp3"},
-  {id:"D024",et:"küüslauk",la:"Allium sativum",droog:"küüslauk",droogLa:"",audio:"Farmakopöa_Küüslauk.mp3"},
-  {id:"D025",et:"harilik lagrits",la:"Glycyrrhiza glabra",droog:"lagrits-magusjuur",droogLa:"",audio:"Farmakopöa_Lagrits-magusjuur.mp3"},
-  {id:"D026",et:"leeskputk",la:"Levisticum officinale",droog:"leeskputk",droogLa:"",audio:"Farmakopöa_Leeskputk_Õige.mp3"},
-  {id:"D027",et:"liht-naistepuna",la:"Hypericum perforatum",droog:"liht-naistepuna",droogLa:"",audio:"Farmakopöa_Liht-naistepuna.mp3"},
-  {id:"D028",et:"loorber",la:"Laurus nobilis",droog:"loorber",droogLa:"",audio:"Loorber.mp3"},
-  {id:"D029",et:"lõhnav neitsikummel",la:"Tanacetum parthenium",droog:"lõhnav neitsikummel",droogLa:"",audio:"Farmakopöa_Lõhnav neitsikummel.mp3"},
-  {id:"D030",et:"harilik maarjalepp",la:"Agrimonia eupatoria",droog:"maarjalepp",droogLa:"",audio:"Farmakopöa_Maarjalepp.mp3"},
-  {id:"D031",et:"maarjaohakas",la:"Silybum marianum",droog:"maarjaohakas",droogLa:"",audio:"Farmakopöa_Maarjaohakas.mp3"},
-  {id:"D032",et:"mets-kassinaeris",la:"Malva sylvestris",droog:"mets-kassinaeris",droogLa:"",audio:"Farmakopöa_Mets-kassinaeris.mp3"},
-  {id:"D033",et:"mustikas",la:"Vaccinium myrtillus",droog:"mustikas",droogLa:"",audio:"Farmakopöa_Mustikas.mp3"},
-  {id:"D034",et:"nurmenukk",la:"Primula veris",droog:"nurmenukk",droogLa:"",audio:"Farmakopöa_Nurmenukk.mp3"},
-  {id:"D035",et:"nõmm-liivatee",la:"Thymus serpyllum",droog:"nõmm-liivatee",droogLa:"",audio:"Farmakopöa_Nõmm_liivatee.mp3"},
-  {id:"D036",et:"harilik palderjan",la:"Valeriana officinalis",droog:"palderjan",droogLa:"",audio:"Palderjan.mp3"},
-  {id:"D037",et:"piparmünt",la:"Mentha × piperita",droog:"piparmünt",droogLa:"",audio:"Farmakopöa_Piparmünt.mp3"},
-  {id:"D038",et:"pohl",la:"Vaccinium vitis-idaea",droog:"pohl",droogLa:"",audio:"Pohl.mp3"},
-  {id:"D039",et:"punane siilkübar",la:"Echinacea purpurea",droog:"punane siilkübar",droogLa:"",audio:"Farmakopöa_Punane_siilkübar.mp3"},
-  {id:"D040",et:"harilik pune",la:"Origanum vulgare",droog:"pune",droogLa:"",audio:"Pune.mp3"},
-  {id:"D041",et:"harilik raudrohi",la:"Achillea millefolium",droog:"raudrohi",droogLa:"",audio:"Farmakopöa_Raudrohi.mp3"},
-  {id:"D042",et:"roosilõhnaline kuldjuur",la:"Rhodiola rosea",droog:"roosilõhnaline kuldjuur",droogLa:"",audio:"Farmakopöa_Roosilõhnaline_kuldjuur.mp3"},
-  {id:"D043",et:"põld-võõrkapsas",la:"Eruca vesicaria",droog:"rukola",droogLa:"",audio:"Rukola.mp3"},
-  {id:"D044",et:"harilik saialill",la:"Calendula officinalis",droog:"saialill",droogLa:"",audio:"Farmakopöa_Saialill.mp3"},
-  {id:"D045",et:"sidrunhein",la:"Cymbopogon citratus",droog:"sidrunhein",droogLa:"",audio:"Sidrunhein.mp3"},
-  {id:"D046",et:"sidrunmeliss",la:"Melissa officinalis",droog:"sidrunmeliss",droogLa:"",audio:"Farmakopöa_Sidrunmeliss.mp3"},
-  {id:"D047",et:"harilik sigur",la:"Cichorium intybus",droog:"sigur",droogLa:"",audio:"Sigur.mp3"},
-  {id:"D048",et:"harilik soolikarohi",la:"Tanacetum vulgare",droog:"soolikarohi",droogLa:"",audio:"Soolikarohi.mp3"},
-  {id:"D049",et:"süstlehine teeleht",la:"Plantago lanceolata",droog:"süstlehine teeleht",droogLa:"",audio:"Farmakopöa_Süstlehine teeleht.mp3"},
-  {id:"D050",et:"harilik tomat",la:"Solanum lycopersicum",droog:"tomat",droogLa:"",audio:"Tomat.mp3"},
-  {id:"D051",et:"tähk-lavendel",la:"Lavandula angustifolia",droog:"tähklavendel",droogLa:"",audio:"Farmakopöa_Tähklavendel.mp3"},
-  {id:"D052",et:"paprika",la:"Capsicum annuum",droog:"tšilli",droogLa:"",audio:"Farmakopöa_Tšilli.mp3"},
-  {id:"D053",et:"veiste südamerohi",la:"Leonurus cardiaca subsp. villosus",droog:"veiste südamerohi",droogLa:"",audio:"Farmakopöa_Veiste_südamerohi.mp3"},
-  {id:"D054",et:"harilik vereurmarohi",la:"Chelidonium majus",droog:"vereurmarohi",droogLa:"",audio:"Farmakopöa_Vereurmarohi.mp3"},
-  {id:"D055",et:"verev sõrmkübar",la:"Digitalis purpurea",droog:"verev sõrmkübar",droogLa:"",audio:"Farmakopöa_Verev_sõrmkübar.mp3"},
-  {id:"D056",et:"harilik õlipuu",la:"Olea europaea",droog:"õlipuu",droogLa:"",audio:"Farmakopöa_õlipuu.mp3"},
-  {id:"D057",et:"üheksavägine",la:"Verbascum thapsus",droog:"üheksavägine",droogLa:"",audio:"Farmakopöa_Üheksavägine.mp3"},
-  {id:"D058",et:"ürt-penimünt",la:"Marrubium vulgare",droog:"ürt-penimünt",droogLa:"",audio:"Farmakopöa_Ürt-penimünt.mp3"},
-  {id:"D059",et:"harilik punanupp",la:"Sanguisorba officinalis",droog:"ürt-punanupp",droogLa:"",audio:"Farmakopöa_Ürt-punanupp.mp3"}
+  {
+    "id": "D001",
+    "et": "aed-liivatee",
+    "la": "Thymus vulgaris",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Aed_liivatee.mp3"
+  },
+  {
+    "id": "D002",
+    "et": "aedkoriander",
+    "la": "Coriandrum sativum",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": "Farmakopöa_Aedkoriander.mp3"
+  },
+  {
+    "id": "D003",
+    "et": "aedsalvei",
+    "la": "Salvia officinalis",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": "Farmakopöa_Aedsalvei.mp3"
+  },
+  {
+    "id": "D004",
+    "et": "teekummel",
+    "la": "Matricaria recutita",
+    "droog": "õisikud, ürt",
+    "droogLa": "",
+    "audio": "Faramakpöa_Teekummel.mp3"
+  },
+  {
+    "id": "D005",
+    "et": "aaloe",
+    "la": "Aloe",
+    "droog": "aaloe kuivatatud lehemahl",
+    "droogLa": "Aloes folii succus siccatus",
+    "audio": "Farmakopöa_Aaloe.mp3"
+  },
+  {
+    "id": "D006",
+    "et": "harilik altee",
+    "la": "Althaea officinalis",
+    "droog": "juur",
+    "droogLa": "",
+    "audio": "Farmakopöa_Altee.mp3"
+  },
+  {
+    "id": "D007",
+    "et": "harilik angervaks",
+    "la": "Filipendula ulmaria",
+    "droog": "õied",
+    "droogLa": "",
+    "audio": "Farmakopöa_Angervaks.mp3"
+  },
+  {
+    "id": "D008",
+    "et": "harilik apteegitill",
+    "la": "Foeniculum vulgare",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": "Farmakopöa_Apteegitill.mp3"
+  },
+  {
+    "id": "D009",
+    "et": "estragonpuju",
+    "la": "Artemisia dracunculus",
+    "droog": "estragonpuju",
+    "droogLa": "",
+    "audio": "Estragonpuju.mp3"
+  },
+  {
+    "id": "D010",
+    "et": "harilik taralõng",
+    "la": "Lycium barbarum",
+    "droog": "goji",
+    "droogLa": "",
+    "audio": "Goji.mp3"
+  },
+  {
+    "id": "D011",
+    "et": "harilik aspar",
+    "la": "Asparagus officinalis",
+    "droog": "harilik aspar",
+    "droogLa": "",
+    "audio": "Harilik aspar.mp3"
+  },
+  {
+    "id": "D012",
+    "et": "harilik käokuld",
+    "la": "Helichrysum arenarium",
+    "droog": "õisikud",
+    "droogLa": "",
+    "audio": "Harilik käokuld.mp3"
+  },
+  {
+    "id": "D013",
+    "et": "harilik mustnupp",
+    "la": "Sanguisorba minor",
+    "droog": "harilik mustnupp",
+    "droogLa": "",
+    "audio": "Farmakopöa_Harilik_mustnupp.mp3"
+  },
+  {
+    "id": "D014",
+    "et": "harilik ogaõun",
+    "la": "Datura stramonium",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": "Harilik ogaõun.mp3"
+  },
+  {
+    "id": "D015",
+    "et": "harilik humal",
+    "la": "Humulus lupulus",
+    "droog": "käbid",
+    "droogLa": "",
+    "audio": "Farmakopöa_Humal.mp3"
+  },
+  {
+    "id": "D016",
+    "et": "harilik ingver",
+    "la": "Zingiber officinale",
+    "droog": "ingver",
+    "droogLa": "",
+    "audio": "Farmakopöa_Ingver.mp3"
+  },
+  {
+    "id": "D017",
+    "et": "kalifornia läänemagun",
+    "la": "Eschscholzia californica",
+    "droog": "kalifornia läänemagun",
+    "droogLa": "",
+    "audio": "Farmakopöa_Kalifornia_läänemagun.mp3"
+  },
+  {
+    "id": "D018",
+    "et": "koirohi",
+    "la": "Artemisia absinthium",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Koirohi.mp3"
+  },
+  {
+    "id": "D019",
+    "et": "kollajuur",
+    "la": "Curcuma",
+    "droog": "kollajuur",
+    "droogLa": "",
+    "audio": "Farmakopöa_Kollajuur.mp3"
+  },
+  {
+    "id": "D020",
+    "et": "kortsleht (liik täpsustamisel)",
+    "la": "Alchemilla spp.",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": "Farmakopöa_Kortsleht.mp3"
+  },
+  {
+    "id": "D021",
+    "et": "kukesaba",
+    "la": "Lythrum",
+    "droog": "kukesaba",
+    "droogLa": "",
+    "audio": "Kukesaba.mp3"
+  },
+  {
+    "id": "D022",
+    "et": "kõrvits (liik täpsustamisel)",
+    "la": "Cucurbita spp.",
+    "droog": "seemned",
+    "droogLa": "",
+    "audio": "Farmakopöa_Kõrvits.mp3"
+  },
+  {
+    "id": "D023",
+    "et": "harilik köömen",
+    "la": "Carum carvi",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": "Farmakopöa_Köömen.mp3"
+  },
+  {
+    "id": "D024",
+    "et": "küüslauk",
+    "la": "Allium sativum",
+    "droog": "küüslauk",
+    "droogLa": "",
+    "audio": "Farmakopöa_Küüslauk.mp3"
+  },
+  {
+    "id": "D025",
+    "et": "harilik lagrits",
+    "la": "Glycyrrhiza glabra",
+    "droog": "lagrits-magusjuur",
+    "droogLa": "",
+    "audio": "Farmakopöa_Lagrits-magusjuur.mp3"
+  },
+  {
+    "id": "D026",
+    "et": "leeskputk",
+    "la": "Levisticum officinale",
+    "droog": "leeskputk",
+    "droogLa": "",
+    "audio": "Farmakopöa_Leeskputk_Õige.mp3"
+  },
+  {
+    "id": "D027",
+    "et": "liht-naistepuna",
+    "la": "Hypericum perforatum",
+    "droog": "lehed, ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Liht-naistepuna.mp3"
+  },
+  {
+    "id": "D028",
+    "et": "loorber",
+    "la": "Laurus nobilis",
+    "droog": "loorber",
+    "droogLa": "",
+    "audio": "Loorber.mp3"
+  },
+  {
+    "id": "D029",
+    "et": "lõhnav neitsikummel",
+    "la": "Tanacetum parthenium",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Lõhnav neitsikummel.mp3"
+  },
+  {
+    "id": "D030",
+    "et": "harilik maarjalepp",
+    "la": "Agrimonia eupatoria",
+    "droog": "maarjalepp",
+    "droogLa": "",
+    "audio": "Farmakopöa_Maarjalepp.mp3"
+  },
+  {
+    "id": "D031",
+    "et": "maarjaohakas",
+    "la": "Silybum marianum",
+    "droog": "maarjaohakas",
+    "droogLa": "",
+    "audio": "Farmakopöa_Maarjaohakas.mp3"
+  },
+  {
+    "id": "D032",
+    "et": "mets-kassinaeris",
+    "la": "Malva sylvestris",
+    "droog": "mets-kassinaeris",
+    "droogLa": "",
+    "audio": "Farmakopöa_Mets-kassinaeris.mp3"
+  },
+  {
+    "id": "D033",
+    "et": "mustikas",
+    "la": "Vaccinium myrtillus",
+    "droog": "lehed, varred, viljad",
+    "droogLa": "",
+    "audio": "Farmakopöa_Mustikas.mp3"
+  },
+  {
+    "id": "D034",
+    "et": "nurmenukk",
+    "la": "Primula veris",
+    "droog": "juured, õied",
+    "droogLa": "",
+    "audio": "Farmakopöa_Nurmenukk.mp3"
+  },
+  {
+    "id": "D035",
+    "et": "nõmm-liivatee",
+    "la": "Thymus serpyllum",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Nõmm_liivatee.mp3"
+  },
+  {
+    "id": "D036",
+    "et": "harilik palderjan",
+    "la": "Valeriana officinalis",
+    "droog": "juured ja risoom",
+    "droogLa": "",
+    "audio": "Palderjan.mp3"
+  },
+  {
+    "id": "D037",
+    "et": "piparmünt",
+    "la": "Mentha × piperita",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": "Farmakopöa_Piparmünt.mp3"
+  },
+  {
+    "id": "D038",
+    "et": "pohl",
+    "la": "Vaccinium vitis-idaea",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": "Pohl.mp3"
+  },
+  {
+    "id": "D039",
+    "et": "punane siilkübar",
+    "la": "Echinacea purpurea",
+    "droog": "punane siilkübar",
+    "droogLa": "",
+    "audio": "Farmakopöa_Punane_siilkübar.mp3"
+  },
+  {
+    "id": "D040",
+    "et": "harilik pune",
+    "la": "Origanum vulgare",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": "Pune.mp3"
+  },
+  {
+    "id": "D041",
+    "et": "harilik raudrohi",
+    "la": "Achillea millefolium",
+    "droog": "õisikud, ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Raudrohi.mp3"
+  },
+  {
+    "id": "D042",
+    "et": "roosilõhnaline kuldjuur",
+    "la": "Rhodiola rosea",
+    "droog": "taimeosa täpsustamisel",
+    "droogLa": "",
+    "audio": "Farmakopöa_Roosilõhnaline_kuldjuur.mp3"
+  },
+  {
+    "id": "D043",
+    "et": "põld-võõrkapsas",
+    "la": "Eruca vesicaria",
+    "droog": "rukola",
+    "droogLa": "",
+    "audio": "Rukola.mp3"
+  },
+  {
+    "id": "D044",
+    "et": "harilik saialill",
+    "la": "Calendula officinalis",
+    "droog": "õied",
+    "droogLa": "",
+    "audio": "Farmakopöa_Saialill.mp3"
+  },
+  {
+    "id": "D045",
+    "et": "sidrunhein",
+    "la": "Cymbopogon citratus",
+    "droog": "sidrunhein",
+    "droogLa": "",
+    "audio": "Sidrunhein.mp3"
+  },
+  {
+    "id": "D046",
+    "et": "sidrunmeliss",
+    "la": "Melissa officinalis",
+    "droog": "lehed, ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Sidrunmeliss.mp3"
+  },
+  {
+    "id": "D047",
+    "et": "harilik sigur",
+    "la": "Cichorium intybus",
+    "droog": "sigur",
+    "droogLa": "",
+    "audio": "Sigur.mp3"
+  },
+  {
+    "id": "D048",
+    "et": "harilik soolikarohi",
+    "la": "Tanacetum vulgare",
+    "droog": "õisikud",
+    "droogLa": "",
+    "audio": "Soolikarohi.mp3"
+  },
+  {
+    "id": "D049",
+    "et": "süstlehine teeleht",
+    "la": "Plantago lanceolata",
+    "droog": "süstlehine teeleht",
+    "droogLa": "",
+    "audio": "Farmakopöa_Süstlehine teeleht.mp3"
+  },
+  {
+    "id": "D050",
+    "et": "harilik tomat",
+    "la": "Solanum lycopersicum",
+    "droog": "tomat",
+    "droogLa": "",
+    "audio": "Tomat.mp3"
+  },
+  {
+    "id": "D051",
+    "et": "tähk-lavendel",
+    "la": "Lavandula angustifolia",
+    "droog": "õied, ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Tähklavendel.mp3"
+  },
+  {
+    "id": "D052",
+    "et": "paprika",
+    "la": "Capsicum annuum",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": "Farmakopöa_Tšilli.mp3"
+  },
+  {
+    "id": "D053",
+    "et": "veiste südamerohi",
+    "la": "Leonurus cardiaca subsp. villosus",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Veiste_südamerohi.mp3"
+  },
+  {
+    "id": "D054",
+    "et": "harilik vereurmarohi",
+    "la": "Chelidonium majus",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Vereurmarohi.mp3"
+  },
+  {
+    "id": "D055",
+    "et": "verev sõrmkübar",
+    "la": "Digitalis purpurea",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": "Farmakopöa_Verev_sõrmkübar.mp3"
+  },
+  {
+    "id": "D056",
+    "et": "harilik õlipuu",
+    "la": "Olea europaea",
+    "droog": "õlipuu",
+    "droogLa": "",
+    "audio": "Farmakopöa_õlipuu.mp3"
+  },
+  {
+    "id": "D057",
+    "et": "üheksavägine",
+    "la": "Verbascum thapsus",
+    "droog": "üheksavägine",
+    "droogLa": "",
+    "audio": "Farmakopöa_Üheksavägine.mp3"
+  },
+  {
+    "id": "D058",
+    "et": "ürt-penimünt",
+    "la": "Marrubium vulgare",
+    "droog": "ürt-penimünt",
+    "droogLa": "",
+    "audio": "Farmakopöa_Ürt-penimünt.mp3"
+  },
+  {
+    "id": "D059",
+    "et": "harilik punanupp",
+    "la": "Sanguisorba officinalis",
+    "droog": "taimeosa täpsustamisel",
+    "droogLa": "",
+    "audio": "Farmakopöa_Ürt-punanupp.mp3"
+  },
+  {
+    "id": "D060",
+    "et": "aedpetersell",
+    "la": "Petroselinum crispum",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D061",
+    "et": "aedtill",
+    "la": "Anethum graveolens",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D062",
+    "et": "ahtalehine põdrakanep",
+    "la": "Chamaenerion angustifolium",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D063",
+    "et": "aleksandria senna",
+    "la": "Senna alexandrina",
+    "droog": "taimeosa täpsustamisel",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D064",
+    "et": "aniisi-hiidiisop",
+    "la": "Agastache foeniculum",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D065",
+    "et": "arukask",
+    "la": "Betula pendula",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D066",
+    "et": "erilehine linnurohi",
+    "la": "Polygonum aviculare",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D067",
+    "et": "gutapuu",
+    "la": "Eucommia ulmoides",
+    "droog": "koor",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D068",
+    "et": "harilik aniis",
+    "la": "Pimpinella anisum",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D069",
+    "et": "harilik hiirekõrv",
+    "la": "Capsella bursa-pastoris",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D070",
+    "et": "harilik iisop",
+    "la": "Hyssopus officinalis",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D071",
+    "et": "harilik kadakas",
+    "la": "Juniperus communis",
+    "droog": "käbid",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D072",
+    "et": "harilik kalmus",
+    "la": "Acorus calamus",
+    "droog": "risoom",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D073",
+    "et": "harilik kanarbik",
+    "la": "Calluna vulgaris",
+    "droog": "õied, ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D074",
+    "et": "harilik karumustikas",
+    "la": "Atropa belladonna",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D075",
+    "et": "harilik kukerpuu",
+    "la": "Berberis vulgaris",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D076",
+    "et": "harilik kuldvits",
+    "la": "Solidago virgaurea",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D077",
+    "et": "harilik käokannus",
+    "la": "Linaria vulgaris",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D078",
+    "et": "harilik leesikas",
+    "la": "Arctostaphylos uva-ursi",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D079",
+    "et": "harilik lina",
+    "la": "Linum usitatissimum",
+    "droog": "seemned",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D080",
+    "et": "harilik lodjapuu",
+    "la": "Viburnum opulus",
+    "droog": "koor",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D081",
+    "et": "harilik luuderohi",
+    "la": "Hedera helix",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D082",
+    "et": "harilik maasapp",
+    "la": "Centaurium erythraea",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D083",
+    "et": "harilik mailane",
+    "la": "Veronica officinalis",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D084",
+    "et": "harilik maikelluke",
+    "la": "Convallaria majalis",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D085",
+    "et": "harilik nööpkakar",
+    "la": "Acmella oleracea",
+    "droog": "õisikud",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D086",
+    "et": "harilik paakspuu",
+    "la": "Frangula alnus",
+    "droog": "koor",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D087",
+    "et": "harilik pihlakas",
+    "la": "Sorbus aucuparia",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D088",
+    "et": "harilik rosmariin",
+    "la": "Salvia rosmarinus",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D089",
+    "et": "harilik tamm",
+    "la": "Quercus robur",
+    "droog": "koor",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D090",
+    "et": "harilik ubaleht",
+    "la": "Menyanthes trifoliata",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D091",
+    "et": "harilik ussitatar",
+    "la": "Bistorta officinalis",
+    "droog": "taimeosa täpsustamisel",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D092",
+    "et": "harilik vaarikas",
+    "la": "Rubus idaeus",
+    "droog": "varred",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D093",
+    "et": "harilik võilill",
+    "la": "Taraxacum officinale",
+    "droog": "juur",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D094",
+    "et": "hõlmikpuu",
+    "la": "Ginkgo biloba",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D095",
+    "et": "islandi käokõrv",
+    "la": "Cetraria islandica",
+    "droog": "tallus",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D096",
+    "et": "kask (liik täpsustamisel)",
+    "la": "Betula spp.",
+    "droog": "pungad",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D097",
+    "et": "kevadadoonis",
+    "la": "Adonis vernalis",
+    "droog": "õied",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D098",
+    "et": "kibuvits (liik täpsustamisel)",
+    "la": "Rosa spp.",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D099",
+    "et": "koera-pöörirohi",
+    "la": "Hyoscyamus niger",
+    "droog": "taimeosa täpsustamisel",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D100",
+    "et": "kolmisruse",
+    "la": "Bidens tripartita",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D101",
+    "et": "kõrvenõges",
+    "la": "Urtica dioica",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D102",
+    "et": "Ledgeri kiinapuu",
+    "la": "Cinchona calisaya var. ledgeriana",
+    "droog": "koor",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D103",
+    "et": "lepp (liik täpsustamisel)",
+    "la": "Alnus spp.",
+    "droog": "käbid",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D104",
+    "et": "mais",
+    "la": "Zea mays",
+    "droog": "emakakaelad ja suudmed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D105",
+    "et": "metsmaasikas",
+    "la": "Fragaria vesca",
+    "droog": "lehed, viljad",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D106",
+    "et": "muskaatsalvei",
+    "la": "Salvia sclarea",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D107",
+    "et": "must pässik",
+    "la": "Inonotus obliquus",
+    "droog": "steriilne moodustis",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D108",
+    "et": "paiseleht",
+    "la": "Tussilago farfara",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D109",
+    "et": "põldosi",
+    "la": "Equisetum arvense",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D110",
+    "et": "pärn (liik täpsustamisel)",
+    "la": "Tilia spp.",
+    "droog": "õied",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D111",
+    "et": "rukkilill",
+    "la": "Centaurea cyanus",
+    "droog": "õisikud, ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D112",
+    "et": "sookail",
+    "la": "Ledum palustre",
+    "droog": "võsud",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D113",
+    "et": "suur teeleht",
+    "la": "Plantago major",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D114",
+    "et": "takjas (liik täpsustamisel)",
+    "la": "Arctium spp.",
+    "droog": "juur",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D115",
+    "et": "tanguudi rabarber",
+    "la": "Rheum tanguticum",
+    "droog": "taimeosa täpsustamisel",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D116",
+    "et": "tungaltera",
+    "la": "Claviceps purpurea",
+    "droog": "sklerootsiumid",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D117",
+    "et": "valge upsujuur",
+    "la": "Veratrum album",
+    "droog": "taimeosa täpsustamisel",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D118",
+    "et": "valkjas mesiohakas",
+    "la": "Echinops sphaerocephalus",
+    "droog": "viljad",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D119",
+    "et": "viirpuu (liik täpsustamisel)",
+    "la": "Crataegus spp.",
+    "droog": "õied, ürt",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D120",
+    "et": "vitseukalüpt",
+    "la": "Eucalyptus viminalis",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D121",
+    "et": "väike igihali",
+    "la": "Vinca minor",
+    "droog": "lehed",
+    "droogLa": "",
+    "audio": ""
+  },
+  {
+    "id": "D122",
+    "et": "väikeseõieline pajulill",
+    "la": "Epilobium parviflorum",
+    "droog": "ürt",
+    "droogLa": "",
+    "audio": ""
+  }
 ];
 
 const byId = Object.fromEntries(DROOGID.map(d => [d.id, d]));
@@ -128,17 +1045,17 @@ function showDetail(d) {
       <h1>${esc(d.et)}</h1>
       <div class="latin">${esc(d.la)}</div>
       <p class="droog">Droog: <strong>${esc(d.droog)}</strong>${d.droogLa ? ` · <i>${esc(d.droogLa)}</i>` : ""}</p>
-      <div class="listen">
+      ${d.audio ? `<div class="listen">
         <strong>🎧 Kuula taimejuttu</strong>
         <audio controls preload="metadata">
           <source src="${encodeURI(d.audio)}" type="audio/mpeg">
           Sinu brauser ei toeta audiopleierit.
         </audio>
-      </div>
+      </div>` : `<div class="listen">Sisu lisandub hiljem.</div>`}
     </article>
     <div class="actions">
       <a class="textlink" href="./">← Kõik taimejutud</a>
-      <a class="textlink" href="${encodeURI(d.audio)}" target="_blank" rel="noopener">Ava helifail</a>
+      ${d.audio ? `<a class="textlink" href="${encodeURI(d.audio)}" target="_blank" rel="noopener">Ava helifail</a>` : ""}
     </div>`;
 }
 
@@ -160,7 +1077,7 @@ function showList() {
 
   function render() {
     const term = q.value.trim().toLocaleLowerCase("et");
-    const rows = DROOGID.filter(d =>
+    const rows = [...DROOGID].sort((a,b)=>a.et.localeCompare(b.et,"et")).filter(d =>
       !term ||
       d.id.toLocaleLowerCase("et").includes(term) ||
       d.et.toLocaleLowerCase("et").includes(term) ||
@@ -174,7 +1091,7 @@ function showList() {
       <a class="item" href="?d=${encodeURIComponent(d.id)}">
         <strong>${esc(d.et)}</strong>
         <span class="sub">${esc(d.la)}</span>
-        <span class="meta">${esc(d.id)} · ${esc(d.droog)}</span>
+        <span class="meta">${esc(d.id)} · ${esc(d.droog)}${d.audio ? "" : " · sisu lisandub"}</span>
       </a>`).join("");
   }
   q.addEventListener("input", render);
